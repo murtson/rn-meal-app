@@ -7,9 +7,11 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 
 import { CATEGORIES } from "../data/dummy-data";
 import CategoryGridTile from "../components/CategoryGridTile";
+import HeaderButton from "../components/HeaderButton"
 
 const CategoriesScreen = (props) => {
   const renderGridItem = (itemData) => {
@@ -39,8 +41,16 @@ const CategoriesScreen = (props) => {
 };
 
 // Javascript functions are objects, hence we can add properties to them.
-CategoriesScreen.navigationOptions = {
-  headerTitle: "Meal Categories",
+CategoriesScreen.navigationOptions = (navigationData) => {
+  return {
+    headerTitle: "Meal Categories",
+    headerLeft: () => <HeaderButtons HeaderButtonComponent={HeaderButton}>
+      <Item title="Menu" iconName="ios-menu" onPress={() => {
+        navigationData.navigation.toggleDrawer();
+      }}></Item>
+    </HeaderButtons>
+  }
+
 };
 
 const styles = StyleSheet.create({
